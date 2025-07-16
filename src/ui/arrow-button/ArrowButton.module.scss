@@ -1,38 +1,37 @@
 .container {
 	position: fixed;
-	top: 31px;
+	top: 32px;
+	left: 0;
+	z-index: 101;
 	display: flex;
-	flex-shrink: 0;
 	justify-content: center;
 	align-items: center;
-	box-sizing: border-box;
-	width: 100px;
-	height: 100px;
+	width: 80px;
+	height: 80px;
 	background-color: #000000;
-	border-right: 1px;
-	transition: transform 0.5s ease;
-}
+	cursor: pointer;
+	transition: transform 0.3s ease;
 
-.container:hover {
-	background-color: #ffc802;
-}
+	&:hover {
+		background-color: #ffc802;
+	}
 
-.container:active {
-	background-color: #787878;
-}
+	&:active {
+		background-color: #787878;
+	}
 
-.container_open {
-	transform: translate(616px);
+	&_open {
+		transform: translateX(614px);
+	}
 }
 
 .arrow {
-	flex-shrink: 0;
 	width: 48px;
 	height: 48px;
 	transform: rotate(180deg);
-	transition: transform 0.5s ease;
-}
+	transition: transform 0.3s ease;
 
-.arrow_open {
-	transform: rotate(0deg);
+	&_open {
+		transform: rotate(0deg);
+	}
 }

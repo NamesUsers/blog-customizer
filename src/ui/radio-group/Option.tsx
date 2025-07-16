@@ -5,6 +5,7 @@ import { useEnterSubmit } from './hooks/useEnterSubmit';
 
 import styles from './RadioGroup.module.scss';
 
+export default {};
 type OptionProps = {
 	value: OptionType['value'];
 	title: OptionType['title'];

@@ -11,6 +11,7 @@ import { useOutsideClickClose } from './hooks/useOutsideClickClose';
 
 import styles from './Select.module.scss';
 
+export default {};
 type SelectProps = {
 	selected: OptionType | null;
 	options: OptionType[];

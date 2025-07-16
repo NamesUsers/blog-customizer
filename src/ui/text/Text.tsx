@@ -4,6 +4,7 @@ import { FontFamiliesClasses } from 'src/constants/articleProps';
 
 import styles from './index.module.scss';
 
+export default {};
 type TextProps = {
 	/** Сам текст для вывода */
 	children: ReactNode;
