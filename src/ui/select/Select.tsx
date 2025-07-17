@@ -8,9 +8,9 @@ import { Option } from './Option';
 import { isFontFamilyClass } from './helpers/isFontFamilyClass';
 import { useEnterSubmit } from './hooks/useEnterSubmit';
 import { useOutsideClickClose } from './hooks/useOutsideClickClose';
-
 import styles from './Select.module.scss';
 
+export default {};
 type SelectProps = {
 	selected: OptionType | null;
 	options: OptionType[];
@@ -18,14 +18,29 @@ type SelectProps = {
 	onChange?: (selected: OptionType) => void;
 	onClose?: () => void;
 	title?: string;
+	className?: string;
+	hideSelected?: boolean;
 };
 
 export const Select = (props: SelectProps) => {
-	const { options, placeholder, selected, onChange, onClose, title } = props;
+	const {
+		options,
+		placeholder,
+		selected,
+		onChange,
+		onClose,
+		title,
+		className,
+		hideSelected = false,
+	} = props;
+
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const rootRef = useRef<HTMLDivElement>(null);
 	const placeholderRef = useRef<HTMLDivElement>(null);
 	const optionClassName = selected?.optionClassName ?? '';
+
+	// Проверяем, является ли выбранная опция цветом (только если selected не null)
+	const isColorOption = selected?.value.includes('color') ?? false;
 
 	useOutsideClickClose({
 		isOpen,
@@ -43,18 +58,22 @@ export const Select = (props: SelectProps) => {
 		setIsOpen(false);
 		onChange?.(option);
 	};
+
 	const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = () => {
 		setIsOpen((isOpen) => !isOpen);
 	};
 
+	const filteredOptions =
+		hideSelected && selected
+			? options.filter((option) => option.value !== selected.value)
+			: options;
+
 	return (
-		<div className={styles.container}>
+		<div className={clsx(styles.container, className)}>
 			{title && (
-				<>
-					<Text size={12} weight={800} uppercase>
-						{title}
-					</Text>
-				</>
+				<Text size={12} weight={800} uppercase>
+					{title}
+				</Text>
 			)}
 			<div
 				className={styles.selectWrapper}
@@ -67,12 +86,18 @@ export const Select = (props: SelectProps) => {
 						styles.placeholder,
 						(styles as Record<string, string>)[optionClassName]
 					)}
-					data-status={status}
 					data-selected={!!selected?.value}
 					onClick={handlePlaceHolderClick}
 					role='button'
 					tabIndex={0}
 					ref={placeholderRef}>
+					{isColorOption && selected && (
+						<span
+							className={styles.colorIndicator}
+							style={{ backgroundColor: selected.value }}>
+							<span className={styles.colorDot} />
+						</span>
+					)}
 					<Text
 						family={
 							isFontFamilyClass(selected?.className)
@@ -84,15 +109,13 @@ export const Select = (props: SelectProps) => {
 				</div>
 				{isOpen && (
 					<ul className={styles.select} data-testid='selectDropdown'>
-						{options
-							.filter((option) => selected?.value !== option.value)
-							.map((option) => (
-								<Option
-									key={option.value}
-									option={option}
-									onClick={() => handleOptionClick(option)}
-								/>
-							))}
+						{filteredOptions.map((option) => (
+							<Option
+								key={option.value}
+								option={option}
+								onClick={() => handleOptionClick(option)}
+							/>
+						))}
 					</ul>
 				)}
 			</div>

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+export default {};
 type UseEnterSubmit = {
 	onChange: React.Dispatch<React.SetStateAction<boolean>>;
 	placeholderRef: React.RefObject<HTMLDivElement>;

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+export default {};
 type UseOutsideClickClose = {
 	isOpen: boolean;
 	onChange: (newValue: boolean) => void;

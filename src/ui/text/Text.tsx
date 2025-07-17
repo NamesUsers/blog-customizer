@@ -4,11 +4,14 @@ import { FontFamiliesClasses } from 'src/constants/articleProps';
 
 import styles from './index.module.scss';
 
+export default {};
 type TextProps = {
 	/** Сам текст для вывода */
 	children: ReactNode;
 	/** Тэг которым отрендерить текст */
 	as?: ElementType;
+	/** Дополнительные классы */
+	className?: string;
 	/** Булевая пропса, должен ли текст меняться в зависимости от конфига */
 	dynamic?: boolean;
 	/** Размер шрифта */
@@ -30,6 +33,7 @@ type TextProps = {
 export const Text = ({
 	children,
 	as: Tag = 'div',
+	className: propClassName = '',
 	size = 18,
 	dynamic = false,
 	weight = 400,
@@ -48,7 +52,8 @@ export const Text = ({
 		{ [styles.uppercase]: uppercase },
 		styles[`${align}`],
 		styles[`${family}`],
-		{ [styles.dynamicLite]: dynamicLite }
+		{ [styles.dynamicLite]: dynamicLite },
+		propClassName // Добавляем переданный className
 	);
 	return <Tag className={className}>{children}</Tag>;
 };

@@ -9,11 +9,15 @@ module.exports = {
 		react: {
 			version: 'detect',
 		},
-		"import/resolver": {
+		'import/resolver': {
 			typescript: {
-				project: "tsconfig.json",
-			}
-		}
+				project: 'tsconfig.json',
+			},
+		},
+		// Добавляем настройки Storybook
+		storybook: {
+			allowedRenderers: ['@storybook/react'], // Разрешаем прямой импорт
+		},
 	},
 	extends: [
 		'plugin:@typescript-eslint/recommended',
@@ -25,6 +29,7 @@ module.exports = {
 		'plugin:import/warnings',
 		'plugin:import/typescript',
 		'plugin:eslint-comments/recommended',
+		'plugin:storybook/recommended',
 	],
 	rules: {
 		semi: [2, 'always'],
@@ -39,5 +44,10 @@ module.exports = {
 		'react-hooks/exhaustive-deps': 'off',
 		'import/no-named-as-default': 'off',
 		'@typescript-eslint/no-empty-function': 'off',
+		// Добавляем правила для Storybook
+		'storybook/no-renderer-packages': 'off', // Отключаем правило о пакетах рендерера
+		'storybook/default-exports': 'warn', // Можно изменить на 'off' если мешает
+		'storybook/hierarchy-separator': 'warn',
 	},
+	ignorePatterns: ['.eslintrc.js'], // Игнорируем сам конфиг ESLint
 };

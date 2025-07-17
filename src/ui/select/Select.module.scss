@@ -62,6 +62,8 @@
 	outline: 3px solid #000000;
 }
 
+/* Стандартные option */
+
 .option {
 	display: flex;
 	justify-content: flex-start;
@@ -69,8 +71,29 @@
 	height: 30px;
 	padding: 15px 17px;
 	background-color: rgb(255 255 255 / 100%);
-	border: 1px;
+	border: none;
 	cursor: pointer;
+}
+
+/* Специальные стили для width options */
+
+.width-content-option {
+	margin: 0;
+	padding: 12px 15px;
+	border-top: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+
+	&:first-child {
+		border-top: none;
+	}
+
+	&:last-child {
+		border-bottom: none;
+	}
+
+	&:hover {
+		background-color: #ffedab;
+	}
 }
 
 .option[aria-selected='true'] {
@@ -81,10 +104,39 @@
 	background: var(--grey, #c4c4c4);
 }
 
+/* Стили для цветного индикатора в placeholder */
+
+.colorIndicator {
+	position: relative;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 8px;
+	border-radius: 4px;
+}
+
+.colorDot {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 6px;
+	height: 6px;
+	background-color: white;
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	opacity: 0;
+}
+
+[data-selected='true'] .colorDot {
+	opacity: 1;
+}
+
+/* Миксины для цветных опций */
+
 @mixin option-color-before {
 	content: '';
-	width: 35px;
-	height: 35px;
+	width: 24px;
+	height: 24px;
 	margin-right: 10px;
 }
 
@@ -96,9 +148,9 @@
 @mixin option-color-after {
 	content: '';
 	position: absolute;
-	left: 26px;
-	width: 17px;
-	height: 17px;
+	left: 25px;
+	width: 8px;
+	height: 8px;
 	border-radius: 100%;
 }
 

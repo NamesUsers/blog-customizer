@@ -1,37 +1,50 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import { RadioGroup } from './RadioGroup';
 import { useState } from 'react';
 
 const meta: Meta<typeof RadioGroup> = {
+	title: 'Components/RadioGroup',
 	component: RadioGroup,
+	tags: ['autodocs'],
 };
 
 export default meta;
 type Story = StoryObj<typeof RadioGroup>;
 
-const RadioGroupWithState = () => {
-	const options = [
-		{ title: '1 опция', value: '1 опция', className: '' },
-		{ title: '2 опция', value: '2 опция', className: '' },
-		{ title: '3 опция', value: '3 опция', className: '' },
-		{ title: '4 опция', value: '4 опция', className: '' },
-	];
-	const [selected, setSelected] = useState(options[0]);
+const options = [
+	{ title: 'Маленький', value: '14px', className: '' },
+	{ title: 'Средний', value: '16px', className: '' },
+	{ title: 'Большой', value: '18px', className: '' },
+];
 
-	return (
-		<>
-			<RadioGroup
-				selected={selected}
-				name='radio'
-				onChange={setSelected}
-				options={options}
-				title='Название радиогруппы'
-			/>
-		</>
-	);
+export const WithTitle: Story = {
+	args: {
+		name: 'fontSize',
+		options,
+		selected: options[0],
+		title: 'Размер шрифта',
+	},
 };
 
-export const RadioGroupStory: Story = {
-	render: () => <RadioGroupWithState />,
+export const WithCustomClass: Story = {
+	args: {
+		name: 'fontSize',
+		options,
+		selected: options[0],
+		className: 'custom-radio-group-class',
+	},
+};
+
+export const InteractiveExample = () => {
+	const [selected, setSelected] = useState(options[0]);
+	return (
+		<RadioGroup
+			name='fontSize'
+			options={options}
+			selected={selected}
+			onChange={setSelected}
+			title='Интерактивный пример'
+			className='interactive-radio-group'
+		/>
+	);
 };
