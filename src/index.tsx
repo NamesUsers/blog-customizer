@@ -14,7 +14,6 @@ const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
 
 const App = () => {
-	const [isOpen, setIsOpen] = useState(false);
 	const [articleState, setArticleState] = useState(defaultArticleState);
 
 	const handleApply = (newState: typeof defaultArticleState) => {
@@ -38,8 +37,6 @@ const App = () => {
 				} as CSSProperties
 			}>
 			<ArticleParamsForm
-				isOpen={isOpen}
-				onToggle={setIsOpen}
 				currentState={articleState}
 				onApply={handleApply}
 				onReset={handleReset}
